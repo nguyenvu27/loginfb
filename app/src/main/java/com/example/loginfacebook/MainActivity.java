@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 //                mTvInfo.setText("User ID: " + loginResult.getAccessToken().getUserId() + "\n" +
 //                        "Auth Token: " + loginResult.getAccessToken().getToken());
 
-                Intent intent = new Intent(MainActivity.this,showActivity.class);
+                Intent intent = new Intent(MainActivity.this,LoginGoogleActivity.class);
                 Bundle bundle = new Bundle();
 // đóng gói kiểu dữ liệu String, Boolean
                 bundle.putString("key_1", "User ID: " + loginResult.getAccessToken().getUserId());

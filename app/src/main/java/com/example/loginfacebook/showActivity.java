@@ -40,16 +40,16 @@ public class showActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
-        tvId = (TextView) findViewById(R.id.tv_show) ;
-        tvId2 = (TextView) findViewById(R.id.tv_show2) ;
-
+//        tvId = (TextView) findViewById(R.id.tv_show) ;
+//        tvId2 = (TextView) findViewById(R.id.tv_show2) ;
 //
-        Bundle bundle = getIntent().getExtras();
-        String title = bundle.getString("key_1");
-        String title2 = bundle.getString("key_2");
-
-        tvId.setText(title );
-        tvId2.setText(title2 );
+////
+//        Bundle bundle = getIntent().getExtras();
+//        String title = bundle.getString("key_1");
+//        String title2 = bundle.getString("key_2");
+//
+//        tvId.setText(title );
+//        tvId2.setText(title2 );
 
         sign_out = findViewById(R.id.log_out);
         nameTV = findViewById(R.id.name);
@@ -69,8 +69,6 @@ public class showActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(showActivity.this);
         if (acct != null) {
             String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
