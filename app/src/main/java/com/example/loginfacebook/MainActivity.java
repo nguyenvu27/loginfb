@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.goplay.gamesdk.core.GoPlayReceiver;
+import com.goplay.gamesdk.core.GoPlaySDK;
+import com.goplay.gamesdk.models.GoPlaySession;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -37,6 +42,24 @@ public class MainActivity extends AppCompatActivity {
     int RC_SIGN_IN = 0;
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
+
+
+    private GoPlaySDK sdk;
+    // private String apiKey = "your api key";
+
+    private String apiKey = "03554252E3734F9C90C8"; // Au2
+    private String sandboxApiKey = "c6cd95e0a76cc58eb745c260585da190";
+    private YourReceiver receiver;
+    private TextView userName;
+    private TextView userId;
+    private TextView token;
+    private TextView screenName;
+
+    private TableLayout table;
+    private Button btnLogin;
+    private Button btnLogout;
+
+    private Button btnUpdateFastLogin;
 
 
 
@@ -123,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        sdk.handleActivityResult(MainActivity.this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -132,6 +156,17 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
 
     }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
@@ -160,6 +195,58 @@ public class MainActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    public class YourReceiver extends GoPlayReceiver {
+
+        @Override
+        public void onLoginSuccess(final GoPlaySession user) {
+            sdk.showWelcomMessage(user, MainActivity.this);
+
+            // START Sample. REMOVE in RELEASE BUILD
+            btnLogin.setVisibility(View.GONE);
+            btnLogout.setVisibility(View.VISIBLE);
+            btnUpdateFastLogin.setVisibility(View.VISIBLE);
+
+            screenName.setText("Main Screen");
+            table.setVisibility(View.VISIBLE);
+//            userName.setText(user.userName);
+            userName.setText("deviceID: "+ sdk.getDeviceId(MainActivity.this) + ", username: "+ user.userName);
+            userId.setText(user.userId);
+            token.setText(user.accessToken);
+        }
+
+        @Override
+        public void onLoginError(String error) {
+
+        }
+
+        @Override
+        public void onLogoutSuccess() {
+            // START Sample. REMOVE in RELEASE BUILD
+            btnLogin.setVisibility(View.VISIBLE);
+            btnLogout.setVisibility(View.GONE);
+            screenName.setText("Splash Screen");
+            table.setVisibility(View.GONE);
+            btnUpdateFastLogin.setVisibility(View.GONE);
+
+            userName.setText("");
+            userId.setText("");
+            token.setText("");
+            // End Sample. REMOVE in RELEASE BUILD
+        }
+
+        @Override
+        public void onLogoutError(String error) {
+            Toast.makeText(MainActivity.this, "Logout error" + error, Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onLoginCancel() {
+            Toast.makeText(MainActivity.this, "Login cancelled", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 
