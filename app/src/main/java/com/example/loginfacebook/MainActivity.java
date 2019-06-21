@@ -1,6 +1,7 @@
 package com.example.loginfacebook;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -27,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.goplay.gamesdk.common.GoPlayAction;
 import com.goplay.gamesdk.core.GoPlayReceiver;
 import com.goplay.gamesdk.core.GoPlaySDK;
 import com.goplay.gamesdk.models.GoPlaySession;
@@ -67,85 +69,146 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.game_activity);
 
-        mCallbackManager = CallbackManager.Factory.create();
-        mTvInfo = (TextView) findViewById(R.id.tv_info);
-        mBtnLoginFacebook = (LoginButton) findViewById(R.id.login_button);
-        signInButton = findViewById(R.id.sign_in_button);
+        setContentView(R.layout.game_activity);
+        receiver = new YourReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(GoPlayAction.LOGIN_SUCCESS_ACTION);
+        filter.addAction(GoPlayAction.LOGIN_ERROR_ACTION);
+        filter.addAction(GoPlayAction.LOGOUT_SUCCESS_ACTION);
+        filter.addAction(GoPlayAction.LOGIN_CANCEL_ACTION);
+        filter.addAction(GoPlayAction.LOGOUT_ERROR_ACTION);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+        sdk = GoPlaySDK.getInstance().init(MainActivity.this, true, apiKey, sandboxApiKey);
+        sdk.setAutoLogin(true);
+        sdk.trackFBInstall(this);
+        screenName = (TextView) findViewById(R.id.screen_name);
+        screenName.setText("Splash Screen");
 
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        table = (TableLayout) findViewById(R.id.tb_user1);
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        userName = (TextView) findViewById(R.id.txt_user);
+
+        userId = (TextView) findViewById(R.id.txt_userid);
+
+        token = (TextView) findViewById(R.id.txt_accesstoken);
+
+
+        btnLogout = (Button) findViewById(R.id.btn_logout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                signIn();
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                sdk.logout(true);
+
             }
         });
+        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                sdk.manualLogin();
+
+            }
+        });
+
+        btnUpdateFastLogin = (Button) findViewById(R.id.btn_update_fast_login);
+        btnUpdateFastLogin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                sdk.updateQuickLogin();
+
+            }
+        });
+
+
+
+
+//        mCallbackManager = CallbackManager.Factory.create();
+//        mTvInfo = (TextView) findViewById(R.id.tv_info);
+//        mBtnLoginFacebook = (LoginButton) findViewById(R.id.login_button);
+//        signInButton = findViewById(R.id.sign_in_button);
+//
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+//        signInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                signIn();
+//            }
+//        });
 
        
 
 
 
 
-        mBtnLoginFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-//                Intent intent = new Intent(MainActivity.this, showActivity.class ) ;
+//        mBtnLoginFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+////                Intent intent = new Intent(MainActivity.this, showActivity.class ) ;
+////                startActivity(intent);
+////                mTvInfo.setText("User ID: " + loginResult.getAccessToken().getUserId() + "\n" +
+////                        "Auth Token: " + loginResult.getAccessToken().getToken());
+//
+//                Intent intent = new Intent(MainActivity.this,LoginGoogleActivity.class);
+//                Bundle bundle = new Bundle();
+//// đóng gói kiểu dữ liệu String, Boolean
+//                bundle.putString("key_1", "User ID: " + loginResult.getAccessToken().getUserId());
+//
+//                bundle.putString("key_2",  "Auth Token: " + loginResult.getAccessToken().getToken());
+//// đóng gói bundle vào intent
+//                intent.putExtras(bundle);
+//// start SecondActivity
 //                startActivity(intent);
-//                mTvInfo.setText("User ID: " + loginResult.getAccessToken().getUserId() + "\n" +
-//                        "Auth Token: " + loginResult.getAccessToken().getToken());
-
-                Intent intent = new Intent(MainActivity.this,LoginGoogleActivity.class);
-                Bundle bundle = new Bundle();
-// đóng gói kiểu dữ liệu String, Boolean
-                bundle.putString("key_1", "User ID: " + loginResult.getAccessToken().getUserId());
-
-                bundle.putString("key_2",  "Auth Token: " + loginResult.getAccessToken().getToken());
-// đóng gói bundle vào intent
-                intent.putExtras(bundle);
-// start SecondActivity
-                startActivity(intent);
-
-
-            }
-
-            @Override
-            public void onCancel() {
-                mTvInfo.setText("Login canceled");
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                mTvInfo.setText("Login failed");
-            }
-        });
-
-
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.loginfacebook",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                mTvInfo.setText("Login canceled");
+//
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                mTvInfo.setText("Login failed");
+//            }
+//        });
+//
+//
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "com.example.loginfacebook",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+//        mCallbackManager.onActivityResult(requestCode, resultCode, data);
         sdk.handleActivityResult(MainActivity.this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 

@@ -162,7 +162,7 @@
                     android:id="@+id/login_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone" />
+                     />
 
                 <ImageButton
                     android:id="@+id/btn_fb"
@@ -180,7 +180,7 @@
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/btn_gg_normal"
                     android:contentDescription="Google"
-                    android:visibility="gone" />
+                    />
 
 
             </LinearLayout>
