@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cfont="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/header_normal" />
+
+        <com.goplay.gamesdk.widgets.ScoinTextView
+            android:id="@+id/lbl_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@string/lbl_register"
+            android:textColor="@color/gray"
+            android:textSize="20sp"
+            cfont:typeface="roboto_medium" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ic_pw_step3" />
+
+            <com.goplay.gamesdk.widgets.ScoinTextView
+                android:id="@+id/lbl_register_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="@string/register_successful"
+                android:textColor="@color/light_blue"
+                android:textSize="20sp"
+                cfont:typeface="roboto_medium" />
+
+            <com.goplay.gamesdk.widgets.ScoinEditText
+                android:id="@+id/edt_username"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/scoin_edit_text"
+                android:drawableLeft="@drawable/scoin_user_drawable_left"
+                android:drawablePadding="5dp"
+                android:focusable="false"
+                android:hint="@string/username_hint"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingTop="1dp"
+                android:singleLine="true"
+                cfont:typeface="roboto_light" />
+
+            <com.goplay.gamesdk.widgets.ScoinEditText
+                android:id="@+id/edt_password"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/scoin_edit_text"
+                android:drawableLeft="@drawable/scoin_pw_drawable_left"
+                android:drawablePadding="5dp"
+                android:focusable="false"
+                android:hint="@string/password_hint"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingTop="1dp"
+                android:singleLine="true"
+                cfont:typeface="roboto_light" />
+
+            <com.goplay.gamesdk.widgets.ScoinButton
+                android:id="@+id/btn_finish"
+                style="@style/ScoinAllCapButton"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/btn_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/scoin_btn_blue_click"
+                android:text="@string/btn_forgot_pw_step3"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,1 @@
+[{"outputType":{"type":"AAPT_FRIENDLY_MERGED_MANIFESTS"},"apkData":{"type":"MAIN","splits":[],"versionCode":10,"versionName":"1.0.10","enabled":true,"outputFile":"goPlaySDK-debug.aar","fullName":"debug","baseName":"debug"},"path":"AndroidManifest.xml","properties":{"packageId":"com.goplay.gamesdk","split":""}}]

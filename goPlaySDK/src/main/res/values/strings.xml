@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="header_desc">GoPlay</string>
+    <string name="username_hint">Tên đăng nhập</string>
+    <string name="password_hint">Mật khẩu</string>
+    <string name="btn_login">ĐĂNG NHẬP</string>
+    <string name="btn_register">ĐĂNG KÝ</string>
+    <string name="forgot_password">&#160; Quên mật khẩu ?</string>
+    <string name="register">Đăng ký  &#160; &#183;</string>
+    <string name="btn_quick_login">CHƠI NGAY</string>
+    <string name="owned_account">Đã có tài khoản ?</string>
+    <string name="error_message">Hiện tại không thể kết nối đến server.Vui lòng thử lại sau [%d]</string>
+    <string name="maintain_error_message">Hiện tại không thể kết nối đến server. Vui lòng thử lại sau</string>
+    <string name="logging_in">Đang đăng nhập &#8230;</string>
+    <string name="loading">Loading &#8230;</string>
+    <string name="validator_email">Email không đúng định dạng.</string>
+    <string name="validator_empty">Không được bỏ trống.</string>
+    <string name="validator_url">Url không chính xác.</string>
+    <string name="validator_confirm">Xác nhận mật khẩu không trùng với mật khẩu.</string>
+    <string name="validator_alnum">The value has not only alnum characters</string>
+    <string name="validator_hex">The value has not only hexadecimal digit characters</string>
+    <string name="validator_regexp">The value does not match against pattern.</string>
+    <string name="validator_phone">Số điện thoại không hợp lệ</string>
+    <string name="validator_string_length">Mật khẩu từ 6 &#8211;16 kí tự</string>
+    <string name="validator_user_name_string_length">Tên tài khoản từ 4 &#8211;30 kí tự và không chứa kí tự đặc biệt ngoài . và _</string>
+    <string name="validator_simple_pw">Bạn không nên sử dụng mật khẩu 123456</string>
+    <string name="welcome_back_msg">Xin chào, %s !</string>
+    <string name="warn_update_quick_login_acc">Bạn đang sử dụng tài khoản Chơi ngay. Bạn nên thay đổi tên đăng nhập để có thể sử dụng lần sau</string>
+    <string name="update">Cập nhật</string>
+    <string name="scoin">Scoin</string>
+    <string name="logout_success">Đổi tài khoản thành công</string>
+    <string name="title_gg_dialog">Chọn tài khoản Google</string>
+    <string name="lbl_login">ĐĂNG NHẬP</string>
+    <string name="lbl_register">ĐĂNG KÝ</string>
+    <string name="lbl_alt">hoặc</string>
+    <string name="btn_forgot_pw_step3">Tiếp tục vào game</string>
+    <string name="ok">Đồng ý</string>
+    <string name="cancel">Hủy</string>
+    <string name="title_login_err">Lỗi đăng nhập</string>
+    <string name="title_register_err">Lỗi đăng ký</string>
+    <string name="register_successful">ĐĂNG KÝ THÀNH CÔNG</string>
+    <string name="validator_id_passport">Số chứng minh thư hoặc hộ chiếu không đúng định dạng</string>
+    <string name="lbl_inreview_login">Welcome, Please sign in</string>
+    <string name="no_account_found">Bạn không có tài khoản nào trên máy. Vui lòng thêm tài khoản Google !</string>
+    <string name="sdk_version">1.0.18</string>
+
+</resources>

@@ -1,0 +1,24 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <style name="mediumCustomProgressBar" parent="@android:style/Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/progress_medium_holo</item>
+    </style>
+
+    <style name="ScoinAllCapButton">
+        <item name="android:height">@dimen/btn_height</item>
+        <item name="android:textSize">@dimen/btn_text_size</item>
+        <item name="textUpperAll">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="typeface">roboto_bold</item>
+    </style>
+
+    <style name="SDKTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
+
+</resources>

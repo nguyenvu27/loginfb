@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ScoinTextView">
+        <attr name="typeface" format="string" />
+    </declare-styleable>
+    <declare-styleable name="ScoinButton">
+        <attr name="textUpperAll" format="reference|boolean" />
+    </declare-styleable>
+    <declare-styleable name="CustomCircularImageViewTheme">
+        <attr name="circularImageViewStyle" format="reference" />
+    </declare-styleable>
+
+
+</resources>
